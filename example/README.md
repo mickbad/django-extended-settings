@@ -17,17 +17,30 @@ or
 $ pipenv install
 ```
 
-Then you can run a server to test http://127.0.0.1:8000
+Then you can run a server :
 
 ```bash
-$ python3 manage.py runserver
+$ python3 manage.py migrate
+$ python3 manage.py createsuperuser
+$ python3 manage.py runserver --insecure
 
 or
 
 # use virtualenv
 $ pipenv shell
-(f41-erT) $ python manage.py runserver
+(example-f41erT) $ python manage.py migrate
+(example-f41erT) $ python manage.py createsuperuser
+(example-f41erT) $ python manage.py runserver --insecure
 ```
+
+Option ```--insecure``` is for static files in production mode (cf ```settings.d/production_settings.py``` with ```DEBUG = False```).
+
+Test these urls:
+
+- Home:  http://127.0.0.1:8000
+- Admin: http://127.0.0.1:8000/admin
+
+
 
 ## See
 
