@@ -3,21 +3,21 @@
 
 from setuptools import setup, find_packages
 
-import extented_settings
+import extended_settings
 
 # description
 long_description = open('README.md').read()
 
 # setup
 setup(
-    name='django-extented-settings',
-    version=extented_settings.__version__,
+    name='django-extended-settings',
+    version=extended_settings.__version__,
 
     packages=find_packages(exclude=('tests.*', 'tests', 'example')),
 
     author="MickBad",
     author_email="prog@mickbad.com",
-    description="Extented Settings for Django Project with settings.d/",
+    description="Extended Settings for Django Project with settings.d/",
 
     long_description=long_description,
 
@@ -51,5 +51,5 @@ setup(
 
     license="BSD",
 
-    keywords="development tools fasting",
+    keywords="django development tools settings",
 )
