@@ -13,6 +13,7 @@ $ pip install django-extended-settings
 
 or
 
+# make virtualenv
 $ pipenv install
 ```
 
@@ -20,6 +21,12 @@ Then you can run a server to test http://127.0.0.1:8000
 
 ```bash
 $ python3 manage.py runserver
+
+or
+
+# use virtualenv
+$ pipenv shell
+(f41-erT) $ python manage.py runserver
 ```
 
 ## See
