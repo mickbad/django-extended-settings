@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------------------------
-# - Django Extends Settings
+# - Django Extended Settings
 # -
 # - MickBad
 # --------------------------------------------------------------------------------------------
@@ -15,9 +15,9 @@ from django.conf import settings
 # --------------------------------------------------------------------------------------------
 # - Import extended settings apps
 # --------------------------------------------------------------------------------------------
-class ExtendSettingsConfig(AppConfig):
-    name = "extend_settings"
-    verbose_name = "Extend Settings"
+class ExtendedSettingsConfig(AppConfig):
+    name = "extended_settings"
+    verbose_name = "Extended Settings"
 
     def __init__(self, app_name, app_module):
         """
@@ -38,7 +38,7 @@ class ExtendSettingsConfig(AppConfig):
         :return: None
         """
         # init AppConfig
-        super(ExtendSettingsConfig, self).__init__(app_name, app_module)
+        super(ExtendedSettingsConfig, self).__init__(app_name, app_module)
 
         # get project root path
         try:
