@@ -1,0 +1,16 @@
+Installation for PyPi (https://pypi.org/)
+
+USAGE : https://packaging.python.org/tutorials/distributing-packages/
+
+# installation
+$ pip install twine
+$ python3 setup.py sdist
+
+# add credentials
+$ nano ~/.pypirc
+[pypi]
+username = USER
+password = PASSWORD
+
+# upload lib
+$ twine upload dist/*
