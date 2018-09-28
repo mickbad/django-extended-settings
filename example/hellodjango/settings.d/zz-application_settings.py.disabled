@@ -1,5 +1,5 @@
 # - This file is DISABLE because pattern is not "*_settings.py"
 
-# activate it and go to page index to see the different sentence
+# activate it and go to page index to see different sentence
 APPLICATION_SENTENCE="This a sentence from newly settings"
 
