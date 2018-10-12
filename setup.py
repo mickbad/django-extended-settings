@@ -20,6 +20,7 @@ setup(
     description="Extended Settings for Django Project with settings.d/",
 
     long_description=long_description,
+    long_description_content_type='text/markdown',
 
     install_requires=[
         "Django>=2.0",

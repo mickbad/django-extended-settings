@@ -57,8 +57,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         django_projectname = settings.SETTINGS_MODULE
         django_projectdir = os.path.join(BASE_DIR, django_projectname.split(".")[0])
 
-        # read only valid settings extends files
-        for file_settings in glob.glob(os.path.join(django_projectdir, "settings.d/*_settings.py")):
+        # read only valid settings extends files (sort files by alpha)
+        list_settings_file = glob.glob(os.path.join(django_projectdir, "settings.d/*_settings.py"))
+        list_settings_file.sort()
+        for file_settings in list_settings_file:
             # log
             print("* Reading extends settings from {}".format(os.path.basename(file_settings)))
 
@@ -79,12 +81,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
             # transform extends settings to global settings
             for var in local_settings:
-                val = local_settings[var]
-                if type(val) is str:
-                    exec("settings.{var}='{val}'".format(var=var, val=val.replace("'", "\\'")))
-                else:
-                    exec("settings.{var}={val}".format(var=var, val=val))
+                # TODO: please fix when settings.d import lib (like from mblibs.fast import FastSettings)
+                try:
+                    val = local_settings[var]
+                    if type(val) is str:
+                        exec("settings.{var}='{val}'".format(var=var, val=val.replace("'", "\\'")))
+                    else:
+                        exec("settings.{var}={val}".format(var=var, val=val))
+
+                except:
+                    pass
 
 
     def ready(self):
         pass
+
