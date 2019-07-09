@@ -46,6 +46,36 @@ Create sub directory ```settings.d/``` into django project directory and put you
 __sample__  : ```/path/to/project/djangopython/settings.d/production_settings.py```
 
 
+#### Play database settings
+
+You can add some settings in database
+
+```$ ./manage.py migrate ```
+
+In your python files, you can create settings (in command for example) like this
+
+```python
+from extended_settings.models import ExtentedSettings
+
+o = ExtentedSettings()
+o.name = "My home page location"
+o.key = "hostname"
+o.value = "http://localhost:8000"
+o.save()
+```
+
+To retrieve settings in your views, ...
+
+```python
+from extended_settings.models import ExtentedSettings
+
+my_var = ExtentedSettings.get("hostname")
+my_var = ExtentedSettings.get("hostname", 'default value')
+
+my_int = ExtentedSettings.get_int("my-int")
+my_bool = ExtentedSettings.get_boolean("my-bool") # True = yes, y, true, 1, ...
+```
+
 
 ### Misc
 
