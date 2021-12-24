@@ -15,7 +15,7 @@ Other configurations must be set in /path/to/project/djangoproject/settings.d/*_
               |_ one_settings.py
               |_ second_settings.py
 
-The current version of the Django Extended Settings is 1.0.0. It works on Django ≥ 2.0. (not tested other)
+The current version of the Django Extended Settings is 1.2.0. It works on Django ≥ 2.0. (not tested other)
 
 ### Installation
 
