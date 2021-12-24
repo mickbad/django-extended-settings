@@ -6,8 +6,11 @@ cf: https://simpleisbetterthancomplex.com/tutorial/2018/08/27/how-to-create-cust
 # libs
 from django.conf import settings as django_settings
 from django.core.management.base import BaseCommand
-from django.utils.translation import ugettext_lazy as _
 from extended_settings.models import ExtentedSettings
+try:
+    from django.utils.translation import ugettext_lazy as _
+except:
+    from django.utils.translation import gettext_lazy as _
 
 
 class Command(BaseCommand):

@@ -22,6 +22,7 @@ Then you can run a server :
 ```bash
 $ python3 manage.py migrate
 $ python3 manage.py createsuperuser
+$ python3 manage.py application_init
 $ python3 manage.py runserver --insecure
 
 or
@@ -30,6 +31,7 @@ or
 $ pipenv shell
 (example-f41erT) $ python manage.py migrate
 (example-f41erT) $ python manage.py createsuperuser
+(example-f41erT) $ python manage.py application_init
 (example-f41erT) $ python manage.py runserver --insecure
 ```
 
