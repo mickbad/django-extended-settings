@@ -73,6 +73,7 @@ my_var = ExtentedSettings.get("hostname")
 my_var = ExtentedSettings.get("hostname", 'default value')
 
 my_int = ExtentedSettings.get_int("my-int")
+my_float = ExtentedSettings.get_float("my-float", 100.0)
 my_bool = ExtentedSettings.get_boolean("my-bool") # True = yes, y, true, 1, ...
 ```
 
