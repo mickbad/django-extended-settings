@@ -99,6 +99,23 @@ class ExtentedSettings(models.Model):
             # pas trouvé!
             return default
 
+    @staticmethod
+    def get_float(key, default=0.0):
+        """
+        get configuration value (float)
+
+        :param key: configuration key
+        :param default: default value if error
+        :return: String
+        """
+        try:
+            value = ExtentedSettings.get(key, default).replace(",", ".")
+            return float(value)
+
+        except:
+            # pas trouvé!
+            return default
+
     # ------------------------------------------------------------------------------------------------------------------
     def custom_field_value(self, cut=50):
         """
