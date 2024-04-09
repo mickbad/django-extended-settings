@@ -48,6 +48,25 @@ class ExtentedSettings(models.Model):
         return self.name
 
     @staticmethod
+    def set(key, value):
+        """
+        Set new value in key
+        """
+        try:
+            o = ExtentedSettings.objects.get(key=key)
+
+        except:
+            # not found, create it
+            o = ExtentedSettings()
+            o.name = f"Option {key}"
+            o.key = key
+            pass
+
+        # set value
+        o.value = value
+        o.save()
+
+    @staticmethod
     def get(key, default=""):
         """
         get configuration value
