@@ -6,7 +6,7 @@
 
 import os
 import sys
-import imp
+import types
 import glob
 from django.apps import AppConfig
 from django.conf import settings
@@ -66,7 +66,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
             # module transformation
             module_name = file_settings.split(".py")[0]
-            module = imp.new_module(module_name)
+            module = types.ModuleType(module_name)
             module.__file__ = file_settings
             sys.modules[module_name] = module
 
