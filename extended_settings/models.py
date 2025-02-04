@@ -48,7 +48,7 @@ class ExtentedSettings(models.Model):
         return self.name
 
     @staticmethod
-    def set(key, value):
+    def set(key, value, name: str = ""):
         """
         Set new value in key
         """
@@ -58,7 +58,7 @@ class ExtentedSettings(models.Model):
         except:
             # not found, create it
             o = ExtentedSettings()
-            o.name = f"Option {key}"
+            o.name = f"Option {key}" if name is None or len(name.strip()) < 1 else name
             o.key = key
             pass
 

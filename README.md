@@ -15,7 +15,7 @@ Other configurations must be set in /path/to/project/djangoproject/settings.d/*_
               |_ one_settings.py
               |_ second_settings.py
 
-The current version of the Django Extended Settings is 1.2.0. It works on Django ≥ 2.0. (not tested other)
+The current version of the Django Extended Settings is 1.3.1. It works on Django ≥ 5.0.
 
 ### Installation
 
@@ -64,6 +64,18 @@ o.value = "http://localhost:8000"
 o.save()
 ```
 
+better alternative,
+
+```python
+from extended_settings.models import ExtentedSettings
+
+ExtentedSettings.set(
+    key="hostname",
+    value="http://localhost:8000",
+    name="My home page location",
+)
+```
+
 To retrieve settings in your views, ...
 
 ```python
@@ -84,5 +96,5 @@ The Django Extended Settings is released under the BSD license, like Django itse
 
 The Django Extended Settings was originally created by Mickael Badet in September 2018.
 
-
+*Special thanks to contributer JunkyDeveloper for Django ≥ 5.0, Python 3.12 fix.*
 
