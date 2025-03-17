@@ -1,3 +1,7 @@
+import csv
+import io
+import json
+
 from django.db import models
 try:
     from django.utils.translation import ugettext_lazy as _
@@ -44,11 +48,13 @@ class ExtentedSettings(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Updated_at"))
 
+    # ------------------------------------------------------------------------------------------------------------------
     def __str__(self):
         return self.name
 
+    # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def set(key, value, name: str = ""):
+    def set(key: str, value, name: str = ""):
         """
         Set new value in key
         """
@@ -66,8 +72,33 @@ class ExtentedSettings(models.Model):
         o.value = value
         o.save()
 
+    # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def get(key, default=""):
+    def set_data(key: str, value, name: str = ""):
+        """
+        Stocke une liste (ou toute structure JSON) sous forme de chaîne (non JSON : on retire les [] ou {} entourant la phrase).
+ 
+        :param key: clé de configuration
+        :param values: liste/dictionnaire à enregistrer
+        :return: None
+        """
+        if not isinstance(value, (list, dict)):
+            raise ValueError("values must be a list")
+
+        # Convert JSON
+        formatted_value = json.dumps(value)
+        formatted_value = formatted_value[1:-1]
+
+        # save
+        ExtentedSettings.set(
+            key=key,
+            value=formatted_value,
+            name=name,
+        )
+    
+    # ------------------------------------------------------------------------------------------------------------------
+    @staticmethod
+    def get(key: str, default=""):
         """
         get configuration value
 
@@ -83,8 +114,9 @@ class ExtentedSettings(models.Model):
             # not found!
             return default
 
+    # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def get_boolean(key, default=False):
+    def get_boolean(key: str, default=False):
         """
         get configuration value (boolean)
 
@@ -102,8 +134,9 @@ class ExtentedSettings(models.Model):
             # pas trouvé!
             return default
 
+    # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def get_int(key, default=0):
+    def get_int(key: str, default=0):
         """
         get configuration value (int)
 
@@ -118,8 +151,9 @@ class ExtentedSettings(models.Model):
             # pas trouvé!
             return default
 
+    # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def get_float(key, default=0.0):
+    def get_float(key: str, default=0.0):
         """
         get configuration value (float)
 
@@ -134,6 +168,63 @@ class ExtentedSettings(models.Model):
         except:
             # pas trouvé!
             return default
+
+    # ------------------------------------------------------------------------------------------------------------------
+    @staticmethod
+    def get_data(key, default=None, delimiter: str =",", quotechar: str ="\""):
+        """
+        Récupère une liste ou structure JSON stockée sous forme de chaîne.
+
+        :param key: clé de configuration
+        :param default: valeur par défaut si la clé est absente
+        :param delimiter: séparateur entre les éléments de la liste
+        :param quotechar: caractère entourant les valeurs (ex: guillemets)
+        :return: Liste/Dictionnaire
+        """
+        value = ExtentedSettings.get(key, None)
+        if value is None:
+            return default 
+
+        # JSON content?
+        try:
+            # try list
+            return json.loads(f"[{value}]")
+        except json.JSONDecodeError:
+            # not json : try dict
+            try:
+                return json.loads("{" + value + "}")
+            except json.JSONDecodeError:
+                # not json
+                pass 
+
+        # Fallback : CSV parse
+        reader = csv.reader(io.StringIO(value), delimiter=delimiter, quotechar=quotechar)
+        parsed_list = next(reader, default)
+
+        # convert int (ex: "2" -> 2)
+        def convert_type(x):
+            """
+            Try to convert value to str, int, float, bool
+            """
+            x = str(x).strip()
+
+            # Convert to bool
+            x_lower = x.lower()
+            if x_lower in ("true", "false"):
+                return x_lower == "true"
+
+            # Convert to int
+            if x.lstrip("-").isdigit():
+                return int(x)
+
+            # Convert float
+            if x.lstrip("-").replace('.', '', 1).isdigit():
+                return float(x)
+
+            # else original x value (stripped)
+            return x
+
+        return [convert_type(x) for x in parsed_list]
 
     # ------------------------------------------------------------------------------------------------------------------
     def custom_field_value(self, cut=50):

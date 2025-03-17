@@ -74,6 +74,12 @@ ExtentedSettings.set(
     value="http://localhost:8000",
     name="My home page location",
 )
+
+ExtentedSettings.set_data(
+    key="data",
+    value=["Aron Run", "toto marche", "mistal:online", -3.14, True, False, {"val": 2}],
+    name="My list",
+)
 ```
 
 To retrieve settings in your views, ...
@@ -87,6 +93,9 @@ my_var = ExtentedSettings.get("hostname", 'default value')
 my_int = ExtentedSettings.get_int("my-int")
 my_float = ExtentedSettings.get_float("my-float", 100.0)
 my_bool = ExtentedSettings.get_boolean("my-bool") # True = yes, y, true, 1, ...
+
+my_list = ExtentedSettings.get_data("data")
+>>> ['Aron marcel', 'toto marche', 'mistral:online', -3.14, True, False, {"val": 2}]
 ```
 
 

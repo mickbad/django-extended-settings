@@ -5,7 +5,7 @@
 # --------------------------------------------------------------------------------------------
 
 # misc
-__version__ = '1.3.2'
+__version__ = '1.4.0'
 
 # Code that discovers files or modules in INSTALLED_APPS imports this module.
 default_app_config = 'extended_settings.apps.ExtendedSettingsConfig'
